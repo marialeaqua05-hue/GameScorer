@@ -1,0 +1,151 @@
+:root {
+    --azul-blockbuster: #0E3FA9;
+    --amarillo-titulos: #f6d634;
+    --fondo-general: #c2d4fd; /*c2d4fd*/
+    --texto-claro: #c2d4fd;
+    --texto-oscuro: #071f53;
+    --dorado: #f6d634;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--fondo-general);
+}
+
+/*Estilos para el título del encabezado */
+header h1 {
+    text-align: center;
+    color: var(--amarillo-titulos);
+    font-family: 'Segpoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 2px 2px 4px orangered;
+}
+
+/*Estilos para el contenedor del formulario */
+.caja-configuracion{
+    margin: 2rem;
+    border: 5px solid var(--azul-blockbuster);
+    text-align: center;
+    border-radius: 12px;
+}
+
+header {
+    display: block;
+    width: 100%;
+    padding: 7px;
+    text-align: center;
+    background-color: var(--azul-blockbuster);
+}
+
+.table-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 1.5rem;
+}
+
+.table-container table {
+    border: 5px solid var(--azul-blockbuster);
+    border-radius: 12px;
+    width: 35%;
+    margin: 1rem;
+}
+
+table th, table td {
+    color: var(--texto-oscuro);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid var(--azul-blockbuster);
+    border-radius: 1px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.table-genero {
+    border: 1px solid var(--azul-blockbuster);
+    border-radius: 12px;
+    width: 50%;
+    margin: 1rem;
+    align-self: center;
+}
+
+.table-container-genero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 1.5rem auto;
+}
+
+#controles-genero {
+    display: flex;
+    gap: 10px; /* Da una pequeña separación entre los inputs y el botón */
+    justify-content: center;
+    align-items: center;
+}
+
+.button-agg{
+    background-color: var(--azul-blockbuster);
+    color: var(--texto-claro);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*Función para mostrar las tablas generadas */
+.oculto {
+    display: none;
+}
+
+.container-input {
+    display: flex;
+    flex-direction: column; /* Coloca el label encima del input */
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: var(--texto-oscuro);
+}
+
+.button-generar {
+    background-color: var(--azul-blockbuster);
+    color: var(--texto-claro);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-generar:hover, .button-agg:hover {
+    background-color: var(--dorado);
+    color: var(--texto-oscuro);
+    transition: all 0.5s ease;
+    box-shadow: 2px 4px 5px orangered;
+}
+
+.input-ponderacion {
+    width: 65%;
+    box-sizing: border-box;
+    min-width: 40px; /* Evita que desaparezcan si la pantalla es muy chica */
+}
+
+#vista-matriz table {
+    width: 100%; /* Asegura que tome todo el ancho de la pantalla */
+    table-layout: fixed; /* CLAVE: Obliga a respetar los anchos que definiremos */
+    border-collapse: collapse; /* Hace que los bordes se vean más limpios */
+}
+
+#vista-matriz th:nth-child(2),
+#vista-matriz td:nth-child(2),
+#vista-matriz th:nth-child(5),
+#vista-matriz td:nth-child(5),
+#vista-matriz th:nth-child(6),
+#vista-matriz td:nth-child(6) {
+    width: 6%;
+}
+
+#vista-matriz input, #vista-matriz select {
+    width: 100%; /* Asegura que los inputs y selects ocupen todo el ancho de la celda */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
