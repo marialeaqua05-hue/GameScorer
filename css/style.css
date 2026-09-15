@@ -4,7 +4,6 @@
     --fondo-general: #c2d4fd; /*c2d4fd*/
     --texto-claro: #c2d4fd;
     --texto-oscuro: #071f53;
-    --dorado: #f6d634;
 }
 
 body {
@@ -96,56 +95,7 @@ table th, table td {
     display: none;
 }
 
-.container-input {
-    display: flex;
-    flex-direction: column; /* Coloca el label encima del input */
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 1rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: bold;
-    color: var(--texto-oscuro);
-}
-
-.button-generar {
-    background-color: var(--azul-blockbuster);
-    color: var(--texto-claro);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.button-generar:hover, .button-agg:hover {
-    background-color: var(--dorado);
-    color: var(--texto-oscuro);
-    transition: all 0.5s ease;
-    box-shadow: 2px 4px 5px orangered;
-}
-
-.input-ponderacion {
-    width: 65%;
-    box-sizing: border-box;
-    min-width: 40px; /* Evita que desaparezcan si la pantalla es muy chica */
-}
-
+/*Centra la tabla matriz */
 #vista-matriz table {
-    width: 100%; /* Asegura que tome todo el ancho de la pantalla */
-    table-layout: fixed; /* CLAVE: Obliga a respetar los anchos que definiremos */
-    border-collapse: collapse; /* Hace que los bordes se vean más limpios */
-}
-
-#vista-matriz th:nth-child(2),
-#vista-matriz td:nth-child(2),
-#vista-matriz th:nth-child(5),
-#vista-matriz td:nth-child(5),
-#vista-matriz th:nth-child(6),
-#vista-matriz td:nth-child(6) {
-    width: 6%;
-}
-
-#vista-matriz input, #vista-matriz select {
-    width: 100%; /* Asegura que los inputs y selects ocupen todo el ancho de la celda */
-    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    margin: 20px auto; 
 }
