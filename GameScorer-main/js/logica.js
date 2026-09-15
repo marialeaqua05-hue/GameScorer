@@ -233,8 +233,13 @@ function actualizarRanking() {
             }
         }
     });
-
-    listaResultados.sort((a, b) => b.puntaje - a.puntaje);
+    
+    //HACE QUE LA TABLA DE RANKING PUEDA PASAR DE MAYOR A MENOR Y VICEVERSA
+    if (ordenDescendente) {
+        listaResultados.sort((a, b) => b.puntaje - a.puntaje); // Mayor a menor
+    } else {
+        listaResultados.sort((a, b) => a.puntaje - b.puntaje); // Menor a mayor
+    }
 
     let posicion = 1;
     listaResultados.forEach(juego => {
@@ -374,6 +379,7 @@ const btnGenerar = document.getElementById("btn-generar");
 const vistaConfig = document.getElementById("vista-configuracion");
 const vistaMatriz = document.getElementById("vista-matriz");
 const cuerpoMatriz = document.getElementById("cuerpo-matriz");
+const btnOrdenarRanking = document.getElementById("btn-ordenar-ranking");
 
 let listaGeneros = [];
 let listaPlataformas = [];
@@ -381,6 +387,7 @@ let costoMinimo
 let costoMaximo
 let existeFilaGenero = false
 let existeFilaPlataforma = false
+let ordenDescendente = true;
 
 btnGenerar.addEventListener("click", function() {
 
@@ -438,3 +445,21 @@ cuerpoMatriz.addEventListener("input", function(e) {
 
 // Llamada inicial para establecer los colores y texto por defecto al abrir
 actualizarIndicadorPesos("config-");
+
+// EL BOTÓN DE ORDENAMIENTO DE LA TABLA DE RANKING
+if(btnOrdenarRanking) {
+    btnOrdenarRanking.addEventListener("click", function() {
+        // Invertir el estado (si era true pasa a false y viceversa)
+        ordenDescendente = !ordenDescendente;
+        
+        // Cambiar el texto del botón para que el usuario sepa qué está viendo
+        if (ordenDescendente) {
+            btnOrdenarRanking.textContent = "Orden actual: Mayor a Menor (Invertir)";
+        } else {
+            btnOrdenarRanking.textContent = "Orden actual: Menor a Mayor (Invertir)";
+        }
+        
+        // Volver a calcular y dibujar la tabla de ranking con el nuevo orden
+        actualizarRanking();
+    });
+}

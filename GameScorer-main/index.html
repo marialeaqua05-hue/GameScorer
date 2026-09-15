@@ -9,6 +9,7 @@
     <!--MUESTRA EL NOMBRE DE LA APLICACIÓN-->
     <header>
         <h1>GameScorer</h1>
+        <img src="imagenes/ocarina.webp" width="160">
         <div class="indicador-pesos">
             <span>Suma de ponderaciones: </span>
             <strong id="total-ponderacion">0.98</strong> / 1.00
@@ -88,6 +89,7 @@
 
             <!--APARTADO QUE PERMITE AGREGAR GENEROS Y UN VALOR A LA TABLA DE GENEROS (AHORA CON SELECT)-->
             <div id="controles-genero">
+                <label>Nombre género:</label>
                 <input type="text" id="input-nombre-genero" placeholder="Ejem. FPS">
                 <select id="input-valor-genero">
                     <option value="">Valor...</option>
@@ -99,13 +101,9 @@
                 <button type="button" id="btn-agregar-genero" class="button-agg">Agregar</button>
             </div>
 
-            <div>
-                <input type="number" id="input-costo-min" placeholder="Ejem. $100">
-                <input type="number" id="input-costo-max" placeholder="Ejem. $1000">
-            </div>
-
             <!--APARTADO QUE PERMITE AGREGAR PLATAFORMAS Y UN VALOR A DICHA PLATAFORMA (AHORA CON SELECT)-->
             <div id="controles-plataforma">
+                <label>Nombre plataforma:</label>
                 <input type="text" id="input-nombre-plataforma" placeholder="Ejem. Xbox, Playstation">
                 <select id="input-valor-plataforma">
                     <option value="">Valor...</option>
@@ -115,6 +113,13 @@
                     <option value="10">10</option>
                 </select>
                 <button type="button" id="btn-agregar-plataforma" class="button-agg">Agregar</button>
+            </div>
+
+            <!--APARTADO PARA QUE EL USUARIO LIMITE EL MINIMO Y MAXIMO DEL COSTO-->
+             <div>
+                <label>Rango de costo:</label>
+                <input type="number" id="input-costo-min" placeholder="Ejem. $100">
+                <input type="number" id="input-costo-max" placeholder="Ejem. $1000">
             </div>
 
             <!--COMBO BOX PARA OBTENER EL NUMERO DE ALTERNATIVAS ENTRE 2 Y 10-->
@@ -177,16 +182,22 @@
 
             <!-- TABLA DE RANKING DE JUEGOS (RESULTADOS FINALES) -->
             <h2 style="text-align: center;">Resultados Finales</h2>
+            
+            <!-- NUEVO BOTÓN PARA INVERTIR EL ORDEN -->
+            <div style="text-align: center; margin-bottom: 15px;">
+                <button type="button" id="btn-ordenar-ranking">Orden actual: Mayor a Menor (Invertir)</button>
+            </div>
+
+            <!-- TABLA COMPLETA CON SU ID -->
             <table>
                 <thead>
                     <tr>
                         <th>Posición</th>
-                        <th>Nombre del Juego</th>
-                        <th>Puntaje Total</th>
+                        <th>Juego</th>
+                        <th>Puntaje Final</th>
                     </tr>
                 </thead>
-                <tbody id="cuerpo-ranking">
-                </tbody>
+                <tbody id="cuerpo-ranking"></tbody>
             </table>
 
         </div>

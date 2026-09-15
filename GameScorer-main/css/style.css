@@ -94,3 +94,8 @@ table th, table td {
 .oculto {
     display: none;
 }
+
+/*Centra la tabla matriz */
+#vista-matriz table {
+    margin: 20px auto; 
+}
