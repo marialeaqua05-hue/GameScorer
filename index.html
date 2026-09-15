@@ -9,6 +9,12 @@
     <!--MUESTRA EL NOMBRE DE LA APLICACIÓN-->
     <header>
         <h1>GameScorer</h1>
+        <img src="imagenes/ocarina.webp" width="160">
+        <div class="indicador-pesos">
+            <span>Suma de ponderaciones: </span>
+            <strong id="total-ponderacion">0.98</strong> / 1.00
+            <small id="mensaje-ponderacion" class="texto-advertencia">(Recomendado: 1.00)</small>
+        </div>
     </header>
 
     <!--CONTIENE TODOS LOS ELEMENTOS CON LOS QUE EL USUARIO PODRÁ OPERAR EL TMDC-->
@@ -57,6 +63,18 @@
                     </tr>
                 </tbody>
             </table>
+
+            <!--TABLA QUE MOSTRARÁ LOS GÉNEROS QUE AGREGUE EL USUARIO Y SUS VALORACIONES ASIGNADAS.-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Género</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-genero"></tbody>
+            </table>
+
             <!--TABLA QUE PERMITIRÁ AL USUARIO ASIGNAR VALORES ENTRE VARIAS PLATAFORMAS PARA VIDEOJUEGOS ENTRE 1 Y 10.-->
             <table>
                 <thead>
@@ -65,68 +83,65 @@
                         <th>Valor</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>PC</th>
-                        <th><input type="number" id="input-valor-pc" min="1" max="10" placeholder="Ejem.6"></th>
-                    </tr>
-                    <tr>
-                        <th>Xbox</th>
-                        <th><input type="number"  id="input-valor-xbox" min="1" max="10" placeholder="Ejem.6"></th>
-                    </tr>
-                    <tr>
-                        <th>PlayStation 5</th>
-                        <th><input type="number"  id="input-valor-playstation" min="1" max="10" placeholder="Ejem.6"></th>
-                    </tr>
-                    <tr>
-                        <th>Switch</th>
-                        <th><input type="number"  id="input-valor-switch" min="1" max="10" placeholder="Ejem.6"></th>
-                    </tr>
-                    <tr>
-                        <th>Switch 2</th>
-                        <th><input type="number"  id="input-valor-switch2" min="1" max="10" placeholder="Ejem.6"></th>
-                    </tr>
-                    <tr>
-                        <th>Celular</th>
-                        <th><input type="number" id="input-valor-celular" min="1" max="10" placeholder="Ejem.6"></th>
-                    </tr>
-                    <tr>
-                        <th>Todo</th>
-                        <th><input type="number" id="input-valor-todo" min="1" max="10" placeholder="Ejem.6"></th>
-                    </tr>
-                </tbody>
+                <tbody id="cuerpo-plataforma"></tbody>
             </table>
-            </div>
-            <div class="table-container-genero">
-            <!--TABLA QUE CONTENDRÁ LOS GÉNEROS AGREDADOS POR EL USUARIO Y SU VALOR DE 1 A 10 ASIGNADO POR EL.-->
-            <table class="table-genero">
-                <thead>
-                    <tr>
-                        <th>Género</th>
-                        <th>Valor</th>
-                    </tr>
-                </thead>
-                <tbody id="tabla-genero"></tbody>
-            </table>
-            <!--APARTADO QUE PERMITE AGREGAR GENEROS Y UN VALOR A LA TABLA DE GENEROS-->
-            <div id="controles-genero">
-                <input type="text" input="input-nombre-genero" placeholder="Ejem. FPS">
-                <input type="number" id="input-valor-genero" min="1" max="10" placeholder="Ejem.6">
-                <button type="button" id="btn-agregar-genero" class="button-agg">Agregar</button>
-            </div>
             </div>
 
-            <!--TEXTBOX PARA OBTENER EL NUMERO DE ALTERNATIVAS (SE LIMITARÁ A 10 ALTERNATIVAS)-->
-            <div class="container-input">
-                <label for="num_alter">Número de alternativas:</label>
-                <input type="number" id="num_alter" name="alternativas" class="input-ponderacion" min="2" max="10" placeholder="2-10 alternativas">
+            <!--APARTADO QUE PERMITE AGREGAR GENEROS Y UN VALOR A LA TABLA DE GENEROS (AHORA CON SELECT)-->
+            <div id="controles-genero">
+                <label>Nombre género:</label>
+                <input type="text" id="input-nombre-genero" placeholder="Ejem. FPS">
+                <select id="input-valor-genero">
+                    <option value="">Valor...</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                    <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                    <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <button type="button" id="btn-agregar-genero" class="button-agg">Agregar</button>
+            </div>
+
+            <!--APARTADO QUE PERMITE AGREGAR PLATAFORMAS Y UN VALOR A DICHA PLATAFORMA (AHORA CON SELECT)-->
+            <div id="controles-plataforma">
+                <label>Nombre plataforma:</label>
+                <input type="text" id="input-nombre-plataforma" placeholder="Ejem. Xbox, Playstation">
+                <select id="input-valor-plataforma">
+                    <option value="">Valor...</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                    <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                    <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <button type="button" id="btn-agregar-plataforma" class="button-agg">Agregar</button>
+            </div>
+
+            <!--APARTADO PARA QUE EL USUARIO LIMITE EL MINIMO Y MAXIMO DEL COSTO-->
+             <div>
+                <label>Rango de costo:</label>
+                <input type="number" id="input-costo-min" placeholder="Ejem. $100">
+                <input type="number" id="input-costo-max" placeholder="Ejem. $1000">
+            </div>
+
+            <!--COMBO BOX PARA OBTENER EL NUMERO DE ALTERNATIVAS ENTRE 2 Y 10-->
+            <label for="num_alter">Número de alternativas:</label>
+            <select id="num_alter" name="alternativas">
+                <option value="">Seleccione...</option>
+                <option value="2">2 alternativas</option>
+                <option value="3">3 alternativas</option>
+                <option value="4">4 alternativas</option>
+                <option value="5">5 alternativas</option>
+                <option value="6">6 alternativas</option>
+                <option value="7">7 alternativas</option>
+                <option value="8">8 alternativas</option>
+                <option value="9">9 alternativas</option>
+                <option value="10">10 alternativas</option>
+            </select>
             
-                <button type="button" id="btn-generar" class="button-generar">Generar tabla</button>
-                </div>
+            <button type="button" id="btn-generar">Generar tabla</button>
+
             </form>
         </div>
 
-        <!--TABLA QUE CONTENDRA LAS ALTERNATIVAS Y LOS CRITERIOS(Y SUS PONDERACIONES)-->
         <!--TABLA MATRIZ-->
         <div id="vista-matriz" class="oculto">
             <table>
@@ -144,7 +159,6 @@
                         <th>Suma de puntaje</th>
                     </tr>
                     <!--FILA QUE MOSTRARA LAS PONDERACIONES ASIGNADAS DESDE LA PRIMERA TABLA DE PONDERACIONES-->
-                    <!--PERMITE MODIFICAR LOS PESOS DE LAS PONDERACIONES DESDE ESTA OTRA TABLA-->
                     <tr>
                         <th>Pesos asignados</th>
                         <th><input type="number" id="matriz-costo" class="input-ponderacion" step="0.01" min="0" max="1" ></th>
@@ -161,11 +175,35 @@
                 <tbody id="cuerpo-matriz"></tbody>
 
             </table>
+
+            <br>
+            <hr>
+            <br>
+
+            <!-- TABLA DE RANKING DE JUEGOS (RESULTADOS FINALES) -->
+            <h2 style="text-align: center;">Resultados Finales</h2>
+            
+            <!-- NUEVO BOTÓN PARA INVERTIR EL ORDEN -->
+            <div style="text-align: center; margin-bottom: 15px;">
+                <button type="button" id="btn-ordenar-ranking">Orden actual: Mayor a Menor (Invertir)</button>
+            </div>
+
+            <!-- TABLA COMPLETA CON SU ID -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Juego</th>
+                        <th>Puntaje Final</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-ranking"></tbody>
+            </table>
+
         </div>
 
     </section>
 
-    <footer></footer>
     <!--CÓDIGO QUE PERMITE HACER LA UNIÓN CON EL SCRIPT DE JAVASCRIPT-->
     <script src="js/logica.js"></script>
 </body>
