@@ -116,11 +116,11 @@
             </div>
 
             <!--APARTADO PARA QUE EL USUARIO LIMITE EL MINIMO Y MAXIMO DEL COSTO-->
-             <div>
+             <!-- <div>
                 <label>Rango de costo:</label>
                 <input type="number" id="input-costo-min" placeholder="Ejem. $100">
                 <input type="number" id="input-costo-max" placeholder="Ejem. $1000">
-            </div>
+            </div> -->
 
             <!--COMBO BOX PARA OBTENER EL NUMERO DE ALTERNATIVAS ENTRE 2 Y 10-->
             <label for="num_alter">Número de alternativas:</label>
@@ -136,6 +136,14 @@
                 <option value="9">9 alternativas</option>
                 <option value="10">10 alternativas</option>
             </select>
+
+            <label for="selector-metodo">Método de evaluación:</label>
+                <select id="selector-metodo">
+                    <option value="saw">SAW</option>
+                    <option value="topsis">TOPSIS</option>
+                    <option value="ambos">Ambos (Comparativa)</option>
+                </select>
+            <br><br>
             
             <button type="button" id="btn-generar">Generar tabla</button>
 
@@ -210,8 +218,14 @@
 
     </section>
 
+    <!--LÓGICA DE LOS MÉTODOS DE TOMA DE DECISIÓN-->
+    <script src="js/metodo_saw.js"></script>
+    <script src="js/metodo_topsis.js"></script>
+
+    <!--CÓDIGO DE LA INTERFAZ DE USUARIO-->
+    <script src="js/interfaz.js"></script>
     <!--CÓDIGO QUE PERMITE HACER LA UNIÓN CON EL SCRIPT DE JAVASCRIPT-->
-    <script src="js/logica.js"></script>
+    <!--<script src="js/logica.js"></script> -->
 
 </body>
 </html>
