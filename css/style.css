@@ -81,6 +81,22 @@ table th, table td {
     align-items: center;
 }
 
+.contenedor-numAlt{
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.contenedor-MEv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
 .button-agg{
     background-color: var(--azul-blockbuster);
     color: var(--texto-claro);
@@ -88,6 +104,7 @@ table th, table td {
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
+    margin: 1rem;
 }
 
 /*Función para mostrar las tablas generadas */
@@ -98,4 +115,34 @@ table th, table td {
 /*Centra la tabla matriz */
 #vista-matriz table {
     margin: 20px auto; 
+}
+
+.ambos-rankings-container {
+    display: flex; 
+    gap: 20px; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    align-items: flex-start;
+}
+
+#btn-cargar-ejemplo{
+    background-color: #2e7d32; 
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 1rem;
+}
+
+.label-general{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--azul-blockbuster);
+}
+
+.header-resFin{
+    text-align: center;
+    color: var(--azul-blockbuster);
+    text-shadow: 2px 2px 4px var(--amarillo-titulos);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

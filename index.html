@@ -89,7 +89,7 @@
 
             <!--APARTADO QUE PERMITE AGREGAR GENEROS Y UN VALOR A LA TABLA DE GENEROS (AHORA CON SELECT)-->
             <div id="controles-genero">
-                <label>Nombre género:</label>
+                <label class="label-general">Nombre género:</label>
                 <input type="text" id="input-nombre-genero" placeholder="Ejem. FPS">
                 <select id="input-valor-genero">
                     <option value="">Valor...</option>
@@ -103,7 +103,7 @@
 
             <!--APARTADO QUE PERMITE AGREGAR PLATAFORMAS Y UN VALOR A DICHA PLATAFORMA (AHORA CON SELECT)-->
             <div id="controles-plataforma">
-                <label>Nombre plataforma:</label>
+                <label class="label-general">Nombre plataforma:</label>
                 <input type="text" id="input-nombre-plataforma" placeholder="Ejem. Xbox, Playstation">
                 <select id="input-valor-plataforma">
                     <option value="">Valor...</option>
@@ -123,36 +123,36 @@
             </div> -->
 
             <!--COMBO BOX PARA OBTENER EL NUMERO DE ALTERNATIVAS ENTRE 2 Y 10-->
-            <label for="num_alter">Número de alternativas:</label>
-            <select id="num_alter" name="alternativas">
-                <option value="">Seleccione...</option>
-                <option value="2">2 alternativas</option>
-                <option value="3">3 alternativas</option>
-                <option value="4">4 alternativas</option>
-                <option value="5">5 alternativas</option>
-                <option value="6">6 alternativas</option>
-                <option value="7">7 alternativas</option>
-                <option value="8">8 alternativas</option>
-                <option value="9">9 alternativas</option>
-                <option value="10">10 alternativas</option>
-            </select>
-
-            <label for="selector-metodo">Método de evaluación:</label>
-                <select id="selector-metodo">
-                    <option value="saw">SAW</option>
-                    <option value="topsis">TOPSIS</option>
-                    <option value="ambos">Ambos (Comparativa)</option>
+            <div class="contenedor-numAlt">
+                <label for="num_alter" class="label-general">Número de alternativas:</label>
+                <select id="num_alter" name="alternativas">
+                    <option value="">Seleccione...</option>
+                    <option value="2">2 alternativas</option>
+                    <option value="3">3 alternativas</option>
+                    <option value="4">4 alternativas</option>
+                    <option value="5">5 alternativas</option>
+                    <option value="6">6 alternativas</option>
+                    <option value="7">7 alternativas</option>
+                    <option value="8">8 alternativas</option>
+                    <option value="9">9 alternativas</option>
+                    <option value="10">10 alternativas</option>
                 </select>
-            <br><br>
-            
-            <button type="button" id="btn-generar">Generar tabla</button>
+            </div>
 
-            <button type="button" id="btn-cargar-ejemplo" style="background-color: #2e7d32; color: white;">Cargar Ejemplo</button>
+            <div class="contenedor-MEv">
+                <label for="selector-metodo" class="label-general">Método de evaluación:</label>
+                <select id="selector-metodo">
+                        <option value="saw">SAW</option>
+                        <option value="topsis">TOPSIS</option>
+                        <option value="ambos">Ambos (Comparativa)</option>
+                    </select>
+                    <br><br>
+                </div>                
+                <button type="button" id="btn-generar" class="button-agg">Generar tabla</button>
 
+                <button type="button" id="btn-cargar-ejemplo">Cargar Ejemplo</button>
+            </div>
             </form>
-
-            
-
         </div>
 
         <!--TABLA MATRIZ-->
@@ -195,25 +195,38 @@
             <br>
 
             <!-- TABLA DE RANKING DE JUEGOS (RESULTADOS FINALES) -->
-            <h2 style="text-align: center;">Resultados Finales</h2>
+            <h2 class="header-resFin">Resultados Finales</h2>
             
             <!-- NUEVO BOTÓN PARA INVERTIR EL ORDEN -->
             <div style="text-align: center; margin-bottom: 15px;">
-                <button type="button" id="btn-ordenar-ranking">Orden actual: Mayor a Menor (Invertir)</button>
+                <button type="button" id="btn-ordenar-ranking" class="button-agg">Orden actual: Mayor a Menor (Invertir)</button>
             </div>
 
+            <div class="ambos-rankings-container">
             <!-- TABLA COMPLETA CON SU ID -->
-            <table>
-                <thead>
+            <table id="table-1">
+                <thead id="head-1">
                     <tr>
                         <th>Posición</th>
                         <th>Juego</th>
                         <th>Puntaje Final</th>
                     </tr>
                 </thead>
-                <tbody id="cuerpo-ranking"></tbody>
+                <tbody id="cuerpo-1"></tbody>
             </table>
 
+            <!--Esta tabla solo se muestra al elegir la opcion de "ambos"-->
+            <table id="table-2">
+                <thead id="head-2">
+                    <tr>
+                        <th>Posición</th>
+                        <th>Juego</th>
+                        <th>Puntaje Final</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-2"></tbody>
+            </table>
+            </div>
         </div>
 
     </section>

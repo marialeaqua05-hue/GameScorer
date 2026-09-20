@@ -16,6 +16,11 @@ let existeFilaGenero = false;
 let existeFilaPlataforma = false;
 let ordenDescendente = true;
 
+let dataRankingActual = [];
+let dataRankingSAW = [];
+let dataRankingTOPSIS = [];
+let metodoActual = "saw";
+
 // 2. FUNCIONES DE CONFIGURACIÓN Y TABLAS
 function obtenerValorEntero(inputTexto) {
     return parseInt(inputTexto);
@@ -317,94 +322,92 @@ function calcularTodaLaMatriz() {
 
     // 3. SELECCIONAR MÉTODO Y CALCULAR
     const selectorMetodo = document.getElementById("selector-metodo");
-    const metodoElegido = selectorMetodo ? selectorMetodo.value : "saw";
-    
-    let resultadosFinales = [];
+    metodoActual = selectorMetodo ? selectorMetodo.value : "saw";
+
+    //Ocultar ultima columna si se elige ambos métodos
+    const theadFilas = document.querySelectorAll("#vista-matriz thead tr");
+    const mostrarColumna = (metodoActual !== "ambos");
+
+    if (theadFilas.length > 1) {
+        theadFilas[0].cells[idxPuntaje].style.display = mostrarColumna ? "" : "none";
+        theadFilas[1].cells[idxPuntaje].style.display = mostrarColumna ? "" : "none";
+    }
 
     // Llamadas a las funciones de tus otros archivos
-    if(metodoElegido === "saw") {
-        resultadosFinales = ejecutarSAW(datosExtraidos, pesosExtraidos, listaMinMax);
-    } else if(metodoElegido === "topsis") {
-        resultadosFinales = ejecutarTOPSIS(datosExtraidos, pesosExtraidos);
-    } else if(metodoElegido === "ambos") {
-        resultadosFinales = ejecutarSAW(datosExtraidos, pesosExtraidos, listaMinMax);
+    if(metodoActual === "saw") {
+        dataRankingActual = ejecutarSAW(datosExtraidos, pesosExtraidos, listaMinMax);
+    } else if(metodoActual === "topsis") {
+        dataRankingActual = ejecutarTOPSIS(datosExtraidos, pesosExtraidos);
+    } else if(metodoActual === "ambos") {
+        dataRankingSAW = ejecutarSAW(datosExtraidos, pesosExtraidos, listaMinMax);
+        dataRankingTOPSIS = ejecutarTOPSIS(datosExtraidos, pesosExtraidos);
     }
 
     // 4. IMPRIMIR RESULTADOS EN LA COLUMNA DE PUNTAJE
+    // Imprimir resultados en la matriz solo si no es "Ambos"
     filas.forEach((fila, i) => {
-        if(resultadosFinales[i] && resultadosFinales[i].puntaje !== undefined && !isNaN(resultadosFinales[i].puntaje)) {
-            fila.cells[idxPuntaje].querySelector("input").value = resultadosFinales[i].puntaje.toFixed(4);
+        fila.cells[idxPuntaje].style.display = mostrarColumna ? "" : "none";
+        
+        if(mostrarColumna && dataRankingActual[i] && !isNaN(dataRankingActual[i].puntaje)) {
+            fila.cells[idxPuntaje].querySelector("input").value = dataRankingActual[i].puntaje.toFixed(4);
         }
     });
 }
 
 function actualizarRanking() {
-    const cuerpoRanking = document.getElementById("cuerpo-ranking");
-    cuerpoRanking.innerHTML = ""; 
-
-    const filasMatriz = cuerpoMatriz.querySelectorAll("tr");
-    let listaResultados = [];
-
-    filasMatriz.forEach(fila => {
-        const inputNombre = fila.cells[0].querySelector("input");
-        const imgElement = fila.querySelector("img"); 
-        const inputPuntaje = fila.querySelector("td:last-child input");
-
-        if (inputNombre && inputPuntaje) {
-            const nombreJuego = inputNombre.value || "Sin nombre";
-            const puntajeFinal = inputPuntaje.value;
-            const rutaImagen = imgElement ? imgElement.src : null;
-
-            if (puntajeFinal !== "..." && puntajeFinal !== "") {
-                listaResultados.push({
-                    nombre: nombreJuego,
-                    puntaje: parseFloat(puntajeFinal),
-                    img: rutaImagen
-                });
-            }
-        }
-    });
+    const cuerpo1 = document.getElementById("cuerpo-1");
+    const head1 = document.getElementById("head-1");
+    const tabla2 = document.getElementById("table-2");
+    const cuerpo2 = document.getElementById("cuerpo-2");
+    const head2 = document.getElementById("head-2");
     
-    if (ordenDescendente) {
-        listaResultados.sort((a, b) => b.puntaje - a.puntaje);
-    } else {
-        listaResultados.sort((a, b) => a.puntaje - b.puntaje);
-    }
+    cuerpo1.innerHTML = ""; 
+    cuerpo2.innerHTML = "";
 
-    let totalElementos = listaResultados.length;
-
-    listaResultados.forEach((juego, index) => {
-        const filaRanking = document.createElement("tr");
-
-        const celdaPosicion = document.createElement("td");
-        celdaPosicion.textContent = ordenDescendente ? (index + 1) : (totalElementos - index);
-        filaRanking.appendChild(celdaPosicion);
-
-        const celdaNombre = document.createElement("td");
-        celdaNombre.style.display = "flex";
-        celdaNombre.style.alignItems = "center";
-        celdaNombre.style.gap = "10px";
-
-        if (juego.img) {
-            const imgRanking = document.createElement("img");
-            imgRanking.src = juego.img;
-            imgRanking.style.width = "40px";
-            imgRanking.style.height = "auto";
-            celdaNombre.appendChild(imgRanking);
+    // FUNCIÓN AUXILIAR: Dibuja las filas automáticamente para la tabla que le pidas
+    const dibujarFilas = (datos, cuerpoTabla) => {
+        let listaResultados = datos.filter(juego => !isNaN(juego.puntaje));
+        
+        if (ordenDescendente) {
+            listaResultados.sort((a, b) => b.puntaje - a.puntaje);
+        } else {
+            listaResultados.sort((a, b) => a.puntaje - b.puntaje);
         }
 
-        const spanTexto = document.createElement("span");
-        spanTexto.textContent = juego.nombre;
-        celdaNombre.appendChild(spanTexto);
+        let totalElementos = listaResultados.length;
         
-        filaRanking.appendChild(celdaNombre);
+        listaResultados.forEach((juego, index) => {
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td>${ordenDescendente ? (index + 1) : (totalElementos - index)}</td>
+                <td style="display: flex; align-items: center; gap: 10px;">
+                    ${juego.img ? `<img src="${juego.img}" style="width: 40px; height: auto;">` : ''}
+                    <span>${juego.nombre}</span>
+                </td>
+                <td>${juego.puntaje.toFixed(4)}</td>
+            `;
+            cuerpoTabla.appendChild(fila);
+        });
+    };
 
-        const celdaPuntaje = document.createElement("td");
-        celdaPuntaje.textContent = juego.puntaje.toFixed(4);
-        filaRanking.appendChild(celdaPuntaje);
+    if (metodoActual !== "ambos") {
+        // --- VISTA NORMAL (UNA SOLA TABLA) ---
+        tabla2.style.display = "none"; // Ocultamos la segunda tabla
+        head1.innerHTML = `<tr><th>Posición</th><th>Juego</th><th>Puntaje ${metodoActual.toUpperCase()}</th></tr>`;
+        dibujarFilas(dataRankingActual, cuerpo1);
 
-        cuerpoRanking.appendChild(filaRanking);
-    });
+    } else {
+        // --- VISTA COMPARATIVA (DOS TABLAS SEPARADAS) ---
+        tabla2.style.display = ""; // Mostramos la segunda tabla
+        
+        // Llenamos la Tabla 1 (SAW)
+        head1.innerHTML = `<tr><th>Posición</th><th>Juego</th><th>Puntaje SAW</th></tr>`;
+        dibujarFilas(dataRankingSAW, cuerpo1);
+
+        // Llenamos la Tabla 2 (TOPSIS)
+        head2.innerHTML = `<tr><th>Posición</th><th>Juego</th><th>Puntaje TOPSIS</th></tr>`;
+        dibujarFilas(dataRankingTOPSIS, cuerpo2);
+    }
 }
 
 // 5. EVENT LISTENERS
